@@ -1,0 +1,243 @@
+"""
+This is an Old age peaople management system, where old people make themselves available to young people to be taken care of themselves.
+A young person can take care of old people monthly and earn income from the funds raised for the Old age house.
+Each young person can select a maximum of 4 elders to take care of.
+An adult must allow a young chap to be able to select him only if he is ready to trust the young chap.
+"""
+
+
+class Elders:
+    
+    def __init__(self):
+        
+        self.d = elders
+        self.y = caretakers
+        self.Info = Info
+        self.info = info
+        self.n = n
+        self.m = m
+       
+        
+    def display(self):
+    
+        print('\n',elders)
+        print(caretakers)
+        
+    def setInfo(self):
+        
+        n=int(input("enter number of inmates in Old Age House :")) 
+        
+        
+        global Ename
+        Ename = []
+        global temp_Ename
+        temp_Ename = []
+        global temp2_Ename
+        temp2_Ename = []
+        
+        for i in range(n):
+    
+            temp = dict()
+    
+            name = input("enter the inmate name :")
+            Ename.append(name)
+            temp_Ename.append(name)
+            temp2_Ename.append(name)
+            # elders[name] = Info
+            age = int(input("enter inmate age :"))
+            Id = int(input("enter inmate id :"))
+            sex = input("enter inmate sex :")
+             
+            temp['age'] = age
+            temp['id'] = Id
+            temp['sex'] = sex
+            
+            elders[name] = temp
+            elders[name]['avail'] = True
+            
+            print(elders)
+
+class young(Elders):
+    
+
+    
+    def setinfo(self):
+        
+        
+        m=int(input("enter number of care takers :"))    
+        
+        
+        global names
+        names = []
+        global Cnames
+        Cnames = []
+        for i in range(m):
+    
+            temp = dict()
+            
+            name = input("enter the caretakers name :")
+            names.append(name)
+            Cnames.append(name)
+            # elders[name] = Info
+            age = int(input("enter caretakers age :"))
+            Id = int(input("enter caretakers id :"))
+            sex = input("enter caretakers sex :")
+             
+            temp['age'] = age
+            temp['id'] = Id
+            temp['sex'] = sex
+            
+            caretakers[name] = temp
+            
+            
+            caretakers[name]['chosen'] = False
+        
+        print(names)    
+        print(caretakers)  
+        
+    
+    
+    
+    
+    
+        
+    def choose(self):
+        
+        Eid = list()
+        
+        name = input("enter the caretaker's name to choose the inmates for :")
+        if name in caretakers:
+        
+            caretakers[name]['Eid'] = Eid
+        
+        else:
+            print("caretaker does not exist")
+        
+        # global k
+        # k= 0
+        
+        for i in range(4):
+            
+            if not Ename:
+                break
+            
+            else:
+                print(Ename)
+                
+                Name = Ename.pop()
+                
+                # if k>4:
+                #     break
+                
+                if name in caretakers:
+                
+                    caretakers[name]['chosen'] = True
+                    
+                    if caretakers[name]['chosen'] == False and elders[Name]['avail'] == False:
+                        
+                        continue
+                    else:
+                        
+                        popid = int(input("enter Eid of an elder or inmate to be alloted to {} :".format(name)))
+                        caretakers[name]['Eid'].append(popid)
+                        
+                        elders[Name]['avail'] = False
+                    # k+=1    
+                    
+        caretakers[name]['chosen'] == False
+                
+            
+    
+    
+    def young_chap(self,RTname):
+        
+        if RTname in caretakers:
+            
+            for i in caretakers[RTname]['Eid']:
+                
+                if not temp_Ename:
+                    break
+                else:
+                    
+                    popname = temp_Ename.pop()
+                    
+                    if elders[popname]['id'] == i:
+                        print(popname+" :")
+                        print(elders[popname])
+                    else:
+                        print("caretaker not holding any inmates")
+        
+    
+    
+        
+        
+    def rating_p(self):
+        
+        
+        RATING = {}
+        
+        RATING['rate'] = list()
+        
+        name = input("enter the person's name for rating :")
+        
+        if name in caretakers or elders:
+            
+            rate = int(input("enter your rating :"))
+            RATING['rate'].append(rate)
+            
+        print(RATING)
+        
+    
+    def older(self):
+        
+        Cname = names.pop()
+        
+        oldest = []
+        OlderCouple = ''
+        for i in temp2_Ename:
+            
+            oldest.append(elders[i]['age'])
+            
+        old = max(oldest)
+        
+        for i in Cnames:
+            if caretakers[i]['age'] == old:
+                
+                OlderCouple = Cname
+                
+                print(OlderCouple+" is taking care of the oldest couple.")
+                break
+            
+            else:
+                print("wrong values")
+                
+        
+        
+            
+            
+            
+
+
+
+    
+n,m,=0,0
+
+
+elders = {} 
+Info = {} 
+caretakers ={}
+info = {}
+Eid = []
+            
+obj = young()
+
+
+obj.setInfo()
+obj.setinfo()
+
+obj.choose()
+obj.display()
+obj.rating_p()
+RTname = input("enter caretaker's name for inmate details :")
+obj.young_chap(RTname)
+obj.older()
